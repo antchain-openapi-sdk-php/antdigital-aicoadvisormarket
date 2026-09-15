@@ -15,6 +15,10 @@ use AlibabaCloud\Tea\RpcUtils\RpcUtils;
 use AlibabaCloud\Tea\Utils\Utils\RuntimeOptions;
 use AntChain\AICOADVISORMARKET\Models\QueryAitechCommAdvisormarketDataRequest;
 use AntChain\AICOADVISORMARKET\Models\QueryAitechCommAdvisormarketDataResponse;
+use AntChain\AICOADVISORMARKET\Models\PushAitechCommAdvisormarketAnalysisRequest;
+use AntChain\AICOADVISORMARKET\Models\PushAitechCommAdvisormarketAnalysisResponse;
+use AntChain\AICOADVISORMARKET\Models\QueryAitechCommAdvisormarketAnalysisRequest;
+use AntChain\AICOADVISORMARKET\Models\QueryAitechCommAdvisormarketAnalysisResponse;
 
 class Client {
     protected $_endpoint;
@@ -151,7 +155,7 @@ class Client {
                     "req_msg_id" => UtilClient::getNonce(),
                     "access_key" => $this->_accessKeyId,
                     "base_sdk_version" => "TeaSDK-2.0",
-                    "sdk_version" => "1.0.2",
+                    "sdk_version" => "1.1.3",
                     "_prod_code" => "AICOADVISORMARKET",
                     "_prod_channel" => "default"
                 ];
@@ -219,5 +223,55 @@ class Client {
     public function queryAitechCommAdvisormarketDataEx($request, $headers, $runtime){
         Utils::validateModel($request);
         return QueryAitechCommAdvisormarketDataResponse::fromMap($this->doRequest("1.0", "aitech.comm.advisormarket.data.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+     * Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+     * @param PushAitechCommAdvisormarketAnalysisRequest $request
+     * @return PushAitechCommAdvisormarketAnalysisResponse
+     */
+    public function pushAitechCommAdvisormarketAnalysis($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->pushAitechCommAdvisormarketAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+     * Summary: 创建异步商圈客群分析任务。接口仅校验参数并创建 QUEUED 任务，不同步执行分析。请保存返回的 task_id，并使用查询接口查询状态或结果。
+     * @param PushAitechCommAdvisormarketAnalysisRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return PushAitechCommAdvisormarketAnalysisResponse
+     */
+    public function pushAitechCommAdvisormarketAnalysisEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return PushAitechCommAdvisormarketAnalysisResponse::fromMap($this->doRequest("1.0", "aitech.comm.advisormarket.analysis.push", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
+    }
+
+    /**
+     * Description: 查询当前租户的异步商圈客群分析任务。
+     * Summary: 查询当前租户的异步商圈客群分析任务。
+     * @param QueryAitechCommAdvisormarketAnalysisRequest $request
+     * @return QueryAitechCommAdvisormarketAnalysisResponse
+     */
+    public function queryAitechCommAdvisormarketAnalysis($request){
+        $runtime = new RuntimeOptions([]);
+        $headers = [];
+        return $this->queryAitechCommAdvisormarketAnalysisEx($request, $headers, $runtime);
+    }
+
+    /**
+     * Description: 查询当前租户的异步商圈客群分析任务。
+     * Summary: 查询当前租户的异步商圈客群分析任务。
+     * @param QueryAitechCommAdvisormarketAnalysisRequest $request
+     * @param string[] $headers
+     * @param RuntimeOptions $runtime
+     * @return QueryAitechCommAdvisormarketAnalysisResponse
+     */
+    public function queryAitechCommAdvisormarketAnalysisEx($request, $headers, $runtime){
+        Utils::validateModel($request);
+        return QueryAitechCommAdvisormarketAnalysisResponse::fromMap($this->doRequest("1.0", "aitech.comm.advisormarket.analysis.query", "HTTPS", "POST", "/gateway.do", Tea::merge($request), $headers, $runtime));
     }
 }
